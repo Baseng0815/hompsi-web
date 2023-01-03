@@ -5,8 +5,12 @@ import org.springframework.data.relational.core.mapping.Table
 import java.time.OffsetDateTime
 
 @Table("users")
-data class User(@Id var uid: Int,
+data class User(@Id var uid: Int?,
                 val registeredAt: OffsetDateTime,
-                val firstName: String?,
-                val lastName: String?,
-                val userName: String)
+                val realName: String?,
+                val userName: String,
+                val mailAddress: String,
+                val saltedPassword: ByteArray,
+                val salt: ByteArray
+)
+

@@ -11,7 +11,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@ActiveProfiles("test")
+//@ActiveProfiles("test")
 class HompsiApplicationTests @Autowired constructor(val mvc: MockMvc) {
 	@Test
 	fun contextLoads() {
