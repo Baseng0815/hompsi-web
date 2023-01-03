@@ -20,30 +20,22 @@ class UserController(val service: UserService) {
     fun findUsers(@PathVariable name: String) = service.findUsersByName(name)
 
     @GetMapping("/info/{id}")
-    fun getUserById(@PathVariable id: Int): ResponseEntity<GetUserResponseBody> {
+    fun getUserInfo(@PathVariable id: Int): ResponseEntity<GetUserInfoResponseBody> {
         val user = service.findUserById(id)
-        return ResponseEntity<GetUserResponseBody>(GetUserResponseBody(
-            user.uid, user.registeredAt, user.realName,
-            user.userName, user.mailAddress
+        return ResponseEntity<GetUserInfoResponseBody>(GetUserInfoResponseBody(
+            user.uid, user.registeredAt, user.realName, user.birthday,
+            user.avatarUri, user.customStatus, user.userName, user.mailAddress
         ), HttpStatus.OK)
     }
 
     @PostMapping("/register")
-    fun registerUser(@RequestBody rUser: RegisterUserRequestBody) {
-        service.registerUser(rUser)
-    }
+    fun registerUser(@RequestBody rUser: RegisterUserRequestBody) = service.registerUser(rUser)
 
-    data class GetUserResponseBody(
-        val uid: Int?,
-        val registeredAt: OffsetDateTime,
-        val realName: String?,
-        val userName: String,
-        val mailAddress: String
+    data class GetUserInfoResponseBody(
+        val uid: Int?, val registeredAt: OffsetDateTime, val realName: String?, val birthday: OffsetDateTime?,
+        val avatarUri: String?, val customStatus: String?, val userName: String, val mailAddress: String
     )
 
     data class RegisterUserRequestBody(
-        val realName: String?,
-        val userName: String,
-        val mailAddress: String,
-        val password: String)
-}
+        val realName: String?, val birthday: OffsetDateTime?, val avatarUri: String?, val customStatus: String?,
+        val userName: String, val mailAddress: String, val password: String) }

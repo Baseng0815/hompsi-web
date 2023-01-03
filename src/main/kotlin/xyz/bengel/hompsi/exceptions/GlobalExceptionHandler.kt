@@ -9,4 +9,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 class GlobalExceptionHandler {
     @ExceptionHandler
     fun handleUserNotFoundException(e: UserNotFoundException) = ResponseEntity<String>(e.message, HttpStatus.NOT_FOUND)
+
+    @ExceptionHandler
+    fun handleUsernameAlreadyInUseException(e: UsernameAlreadyInUseException) = ResponseEntity<String>(e.message, HttpStatus.BAD_REQUEST)
+
+    @ExceptionHandler
+    fun handleMailAlreadyInUseException(e: MailAlreadyInUseException) = ResponseEntity<String>(e.message, HttpStatus.BAD_REQUEST)
 }
